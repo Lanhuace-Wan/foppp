@@ -5,7 +5,7 @@ fn main() {
     use env::args;
     let args:Vec<String> = args().collect(); //Get arguments
     if args.len() <= 3 {eprintln!("Insufficient arguments, need at least 3 arguments");} //Check arguments
-    let user_Dirs = UserDirs::new().unwrap(); //Get user directories
+    let user_dirs = UserDirs::new().unwrap(); //Get user directories
     let target_path = args.last().unwrap(); //Get target path
     let files = fs::read_dir(target_path).unwrap();
     for file in files { //Loop through files
@@ -27,11 +27,15 @@ fn main() {
                     // else{
                     //     println!("Other");
                     // }
-                    let target_dir = match path_str {
-                        "jpg" | "png" | "jpeg" | "gif" | "bmp" | "tiff" | "webp" | "ico" | "svg" => user_Dirs.picture_dir(),
-                        "mp3" | "wav" | "flac" | "ogg" | "aiff" | "wma" | "m4a" => user_Dirs.music_dir(),
-                        "mp4" | "avi" | "mov" | "wmv" | "flv" | "mkv" | "webm" | "ogv" | "mpg" | "mpeg" | "m4v" => user_Dirs,
+                    let target_dir_option = match path_str {
+                        "jpg" | "png" | "jpeg" | "gif" | "bmp" | "tiff" | "webp" | "ico" | "svg" => user_dirs.picture_dir(),
+                        "mp3" | "wav" | "flac" | "ogg" | "aiff" | "wma" | "m4a" => user_dirs.audio_dir(),
+                        "mp4" | "avi" | "mov" | "wmv" | "flv" | "mkv" | "webm" | "ogv" | "mpg" | "mpeg" | "m4v" => user_dirs.video_dir(),
                         _ => None,
+                    };
+                    if let Some(target_dir) = target_dir_option {
+                        let destination = target_dir.join(path.file_name().unwrap());
+                        fs::rename(item.path(), destination);
                     };
             }
         } else if item.file_name().to_str().unwrap().starts_with(".") {
