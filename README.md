@@ -2,11 +2,14 @@
 
 This little thing will take a path and try to clean those files back to the folder they should stay (User folder). Will skip file start with dot.
 
-Made with pure hate 💖
+Made with pure hate 💖💖
 
+Name is from the initial of File OPeration things (I forgor the things word)
   
 
 #### Argument
+
+Program name: Fop
 
 - Path
 - `-d`     `--dry_run`
