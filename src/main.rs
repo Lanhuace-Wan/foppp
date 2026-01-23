@@ -10,7 +10,7 @@ use log::LevelFilter;
 #[derive(Parser)]
 #[command(name = "fop")]
 #[command(before_help = include_str!("./ascii.txt"))] 
-#[command(version = "0.9.5")]
+#[command(version = "1.0.6-7")]
 #[command(about = "Shitcoded tool that can put shitty files into shitty user folders automatically, made with pure hate and guide from Gemini", long_about = None)]
 struct Cli {
     #[arg(default_value = ".")] 
